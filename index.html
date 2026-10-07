@@ -3,25 +3,126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ChatApp - Modern Real-time Messenger</title>
+  <title>ChatApp - Modern Messenger</title>
   
+  <!-- Google Fonts & Lucide Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
   
+  <!-- Supabase JS CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <div id="app">
-    <div class="initial-loader">
-      <div class="spinner"></div>
-      <h2>Loading ChatApp...</h2>
+  <div id="app" class="app-container">
+    
+    <!-- Auth Screen Container -->
+    <div id="auth-screen" class="auth-card">
+      <div class="auth-header">
+        <div class="brand-logo">
+          <i data-lucide="zap"></i>
+        </div>
+        <h2>Welcome to ChatApp</h2>
+        <p>Connect and chat in real-time</p>
+      </div>
+      
+      <form id="auth-form" class="auth-form">
+        <div class="input-group">
+          <label for="email">Email</label>
+
+          <input type="email" id="email" placeholder="name@example.com" required>
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" id="auth-btn" class="btn-primary">Sign In</button>
+      </form>
+      
+      <div class="auth-footer">
+        <span id="auth-toggle-text">Don't have an account?</span>
+        <a href="#" id="auth-toggle-btn">Sign Up</a>
+      </div>
     </div>
+
+    <!-- Main Chat Dashboard (Initially Hidden) -->
+    <div id="chat-dashboard" class="chat-dashboard hidden">
+      
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="user-profile">
+            <div class="avatar" id="current-user-avatar">U</div>
+            <div class="user-info">
+              <h4 id="current-user-name">User</h4>
+              <span class="status-indicator online">Online</span>
+            </div>
+          </div>
+          <button id="logout-btn" class="icon-btn" title="Logout">
+            <i data-lucide="log-out"></i>
+          </button>
+        </div>
+
+        <div class="sidebar-search">
+          <div class="search-box">
+            <i data-lucide="search"></i>
+            <input type="text" id="user-search-input" placeholder="Search users...">
+          </div>
+        </div>
+
+        <div class="conversation-list" id="conversation-list">
+          <!-- User channels/conversations will load here -->
+        </div>
+      </aside>
+
+      <!-- Main Chat Area -->
+      <main class="chat-area">
+        <div class="chat-header">
+          <div class="active-chat-info">
+            <div class="avatar" id="active-chat-avatar">C</div>
+            <div>
+              <h3 id="active-chat-name">Select a conversation</h3>
+              <p id="active-chat-status" class="status-text">Start messaging</p>
+            </div>
+          </div>
+          <div class="chat-actions">
+            <button id="call-btn" class="icon-btn call-action-btn" title="Start Call">
+              <i data-lucide="phone"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Messages Container -->
+        <div class="messages-container" id="messages-container">
+          <div class="empty-chat-placeholder">
+            <i data-lucide="message-square"></i>
+            <p>No messages yet. Send a message to start the conversation!</p>
+          </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-area">
+          <input type="text" id="message-input" placeholder="Type a message..." disabled>
+          <button id="send-btn" class="btn-send" disabled>
+            <i data-lucide="send"></i>
+          </button>
+        </div>
+      </main>
+
+    </div>
+
   </div>
 
+  <!-- Lucide Icons Initialize Script -->
+  <script>
+    lucide.createIcons();
+  </script>
+  <!-- Custom Scripts -->
   <script src="js/config.js"></script>
   <script src="js/app.js"></script>
 </body>
